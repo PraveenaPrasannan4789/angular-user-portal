@@ -22,3 +22,22 @@
 //     }
 //   }
 // }
+
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UserService } from '../user.service';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './home.html',
+  styleUrl: './home.scss',
+})
+export class Home {
+  users: string[] = [];
+
+  constructor(private userService: UserService) {
+    this.users = this.userService.getUsers();
+  }
+}
