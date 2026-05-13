@@ -23,9 +23,28 @@
 //   }
 // }
 
-import { Component } from '@angular/core';
+// import { Component } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { UserService } from '../user';
+
+// @Component({
+//   selector: 'app-home',
+//   standalone: true,
+//   imports: [CommonModule],
+//   templateUrl: './home.html',
+//   styleUrl: './home.scss',
+// })
+// export class Home {
+//   users: string[] = [];
+
+//   constructor(private userService: UserService) {
+//     this.users = this.userService.getUsers();
+//   }
+// }
+
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../user';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -34,10 +53,14 @@ import { UserService } from '../user';
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home {
-  users: string[] = [];
+export class Home implements OnInit {
+  users: any[] = [];
 
-  constructor(private userService: UserService) {
-    this.users = this.userService.getUsers();
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http.get<any[]>('https://jsonplaceholder.typicode.com/users').subscribe((data) => {
+      this.users = data;
+    });
   }
 }
