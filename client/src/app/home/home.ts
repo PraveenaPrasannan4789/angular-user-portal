@@ -42,9 +42,33 @@
 //   }
 // }
 
+// import { Component, OnInit } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { HttpClient } from '@angular/common/http';
+
+// @Component({
+//   selector: 'app-home',
+//   standalone: true,
+//   imports: [CommonModule],
+//   templateUrl: './home.html',
+//   styleUrl: './home.scss',
+// })
+// export class Home implements OnInit {
+//   users: any[] = [];
+
+//   constructor(private http: HttpClient) {}
+
+//   ngOnInit(): void {
+//     this.http.get<any[]>('https://jsonplaceholder.typicode.com/users').subscribe((data) => {
+//       this.users = data;
+//     });
+//   }
+// }
+
+//getting from api
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { UserService } from '../user';
 
 @Component({
   selector: 'app-home',
@@ -56,11 +80,12 @@ import { HttpClient } from '@angular/common/http';
 export class Home implements OnInit {
   users: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('https://jsonplaceholder.typicode.com/users').subscribe((data) => {
+    this.userService.getUsers().subscribe((data: any) => {
       this.users = data;
+      console.log(data);
     });
   }
 }
